@@ -3,17 +3,6 @@ import RichText from "@/components/RichText";
 import { client } from "@/lib/contentful";
 import { redirect } from "next/navigation";
 
-// Generate all possible paths
-export const getStaticPaths = async () => {
-    const response = await client.getEntries({ content_type: "blogPost" });
-    const paths = response.items.map((item: any) => ({ params: { slug: item.fields.slug } }));
-
-    return {
-        paths,
-        fallback: true,
-    };
-};
-
 interface Params {
     slug: string;
 }
