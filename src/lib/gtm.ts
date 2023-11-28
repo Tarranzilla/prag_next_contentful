@@ -8,6 +8,7 @@ export const GTM_ID = process.env.NEXT_PUBLIC_GTM;
 
 export const pageview = (url: string) => {
     if (typeof window.dataLayer !== "undefined") {
+        console.log(window.dataLayer);
         window.dataLayer.push({
             event: "pageview",
             page: url,
