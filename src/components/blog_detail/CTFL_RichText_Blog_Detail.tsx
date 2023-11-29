@@ -1,6 +1,6 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
-import CTFL_Img_Loader from "./CTFL_Img_Loader";
+import CTFL_Img_Loader from "../CTFL_Img_Loader";
 import Link from "next/link";
 
 const options = {
@@ -28,7 +28,7 @@ const options = {
             return <p>{children}</p>;
         },
 
-        [BLOCKS.HEADING_1]: (node: any, children: any) => <h1 className="full_width">{children}</h1>,
+        [BLOCKS.HEADING_1]: (node: any, children: any) => <h1 className="wide">{children}</h1>,
 
         [BLOCKS.HEADING_2]: (node: any, children: any) => <h2 className="wide">{children}</h2>,
 
@@ -77,8 +77,8 @@ const options = {
     },
 };
 
-const RichText = ({ document }: { document: any }) => {
-    return <div className="RichText grid_container">{documentToReactComponents(document, options)}</div>;
+const RichText_Blog_Detail = ({ document }: { document: any }) => {
+    return <div className="RichText_Container Grid_Container">{documentToReactComponents(document, options)}</div>;
 };
 
-export default RichText;
+export default RichText_Blog_Detail;

@@ -1,5 +1,5 @@
-import Card from "@/components/Card";
-import RichText from "@/components/RichText";
+import Card from "@/components/blog/BlogPostCard";
+import RichText_Detail from "@/components/blog_detail/CTFL_RichText_Blog_Detail";
 import { client, previewClient } from "@/lib/contentful";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -19,11 +19,11 @@ async function getBlogPostsBySlug(slug: string) {
 
 const BlogPostDetail = async (props: any) => {
     const { isEnabled } = draftMode();
-    console.log(isEnabled);
+    //console.log(isEnabled);
     //console.log(props.searchParams);
     const currentClient = isEnabled ? previewClient : client;
 
-    console.log(props.params.slug);
+    //console.log(props.params.slug);
     const response = await currentClient.getEntries({
         content_type: "blogPost",
         "fields.slug": props.params.slug,
@@ -34,11 +34,11 @@ const BlogPostDetail = async (props: any) => {
     }
 
     const blogPost = response.items[0];
-    console.log(blogPost);
-    console.log(blogPost.fields.conteudo);
+    //console.log(blogPost);
+    //console.log(blogPost.fields.conteudo);
 
     return (
-        <main className="Page BlogPostDetail">
+        <main className="Page">
             {isEnabled && (
                 <div className="Preview_Container">
                     <p>Você está pré-visualizando o seu conteúdo!</p>
@@ -47,7 +47,7 @@ const BlogPostDetail = async (props: any) => {
                     </Link>
                 </div>
             )}
-            <RichText document={blogPost.fields.conteudo} />
+            <RichText_Detail document={blogPost.fields.conteudo} />
         </main>
     );
 };
