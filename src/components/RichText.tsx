@@ -28,9 +28,9 @@ const options = {
             return <p>{children}</p>;
         },
 
-        [BLOCKS.HEADING_1]: (node: any, children: any) => <h1>{children}</h1>,
+        [BLOCKS.HEADING_1]: (node: any, children: any) => <h1 className="full_width">{children}</h1>,
 
-        [BLOCKS.HEADING_2]: (node: any, children: any) => <h2>{children}</h2>,
+        [BLOCKS.HEADING_2]: (node: any, children: any) => <h2 className="wide">{children}</h2>,
 
         [BLOCKS.HEADING_3]: (node: any, children: any) => <h3>{children}</h3>,
 
@@ -70,7 +70,7 @@ const options = {
                     height={node.data.target.fields.file.details.image.height}
                     width={node.data.target.fields.file.details.image.width}
                     alt={node.data.target.fields.title}
-                    className="h-20 w-20"
+                    className="full_width_image full_width"
                 />
             );
         },
@@ -78,7 +78,7 @@ const options = {
 };
 
 const RichText = ({ document }: { document: any }) => {
-    return <div className="RichText">{documentToReactComponents(document, options)}</div>;
+    return <div className="RichText grid_container">{documentToReactComponents(document, options)}</div>;
 };
 
 export default RichText;
