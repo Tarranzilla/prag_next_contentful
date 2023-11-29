@@ -1,16 +1,19 @@
 import Card from "@/components/Card";
 import RichText from "@/components/RichText";
-import { client } from "@/lib/contentful";
+import { client, previewClient } from "@/lib/contentful";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { draftMode } from "next/headers";
 
-interface Params {
-    slug: string;
-}
+const BlogPostDetail = async (props: any) => {
+    const { isEnabled } = draftMode();
+    console.log(isEnabled);
+    //console.log(props.searchParams);
+    const currentClient = isEnabled ? previewClient : client;
 
-const BlogPostDetail = async ({ params }: { params: Params }) => {
-    const response = await client.getEntries({
+    const response = await currentClient.getEntries({
         content_type: "blogPost",
-        "fields.slug": params.slug,
+        "fields.slug": props.slug,
     });
 
     if (!response.items.length) {
@@ -21,6 +24,14 @@ const BlogPostDetail = async ({ params }: { params: Params }) => {
 
     return (
         <main className="Page BlogPostDetail">
+            {isEnabled && (
+                <div className="Preview_Container">
+                    <p>Você está pré-visualizando o seu conteúdo!</p>
+                    <Link href="/api/exit-preview">
+                        <p>Sair do modo de preview</p>
+                    </Link>
+                </div>
+            )}
             <Card blogPost={blogPost} />
             <RichText document={blogPost.fields.conteudo} />
         </main>
